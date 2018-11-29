@@ -1,0 +1,18 @@
+
+version: "2"
+
+services:
+
+  # source-db is the 'master' database.
+  source-db:
+    image: postgres:9.5
+    environment:
+      POSTGRES_DB: source
+      POSTGRES_USER: source_user
+      POSTGRES_PASSWORD: source_pass
+  postgres-backup-s3:
+    build: psql-backup-s3
+    env_file: .env
+    links:
+      - source-db:db # target name should be always be db
+    
