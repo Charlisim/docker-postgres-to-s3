@@ -1,5 +1,10 @@
+#!/bin/bash
+
 set -e
 set -u
+
+scriptPath=$(dirname "$(readlink -f "$0")")
+source "${scriptPath}/.env.sh"
 
 echo "Starting backup"
 PGPASSWORD=${POSTGRES_PASSWORD} pg_dump -Fc -h db -U ${POSTGRES_USER} ${POSTGRES_DB} > /data/${FILENAME}
